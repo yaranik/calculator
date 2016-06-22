@@ -1,22 +1,25 @@
+#Calculator v0.4
+#Yarislav Povolotsky
+#2016
 import sys
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtCore import Qt
 from math import sqrt
 
+#Глобальные переменные
 num = 0.0
 newNum = 0.0
 sumAll = 0.0
-operator = ""
 
+operator = ""
 opVar = False
 sumIt = 0
 
+#Класс для графической/вычислительной части приложения
 class ViewOfCalculator(QtGui.QMainWindow):
-
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         self.initUI()
-#Работа с графическим представлением программы
     def initUI(self):
 
         self.line = QtGui.QLineEdit(self)
@@ -66,16 +69,6 @@ class ViewOfCalculator(QtGui.QMainWindow):
         nine.move(180, 150)
         nine.resize(70, 60)
 
-        switch = QtGui.QPushButton("+/-", self)
-        switch.move(100, 360)
-        switch.resize(70, 60)
-        switch.clicked.connect(self.OnSwitchButtonClick)
-
-        point = QtGui.QPushButton(".", self)
-        point.move(180, 360)
-        point.resize(70, 60)
-        point.clicked.connect(self.OnPointClickedButtonClick)
-
         div = QtGui.QPushButton("/", self)
         div.move(260, 150)
         div.resize(70, 60)
@@ -106,7 +99,7 @@ class ViewOfCalculator(QtGui.QMainWindow):
         equal = QtGui.QPushButton("=", self)
         equal.move(260, 360)
         equal.resize(70, 60)
-        equal.clicked.connect(self.Equal)
+
 
         c = QtGui.QPushButton("C", self)
         c.move(20, 80)
@@ -118,6 +111,17 @@ class ViewOfCalculator(QtGui.QMainWindow):
         back.resize(70, 60)
         back.clicked.connect(self.OnBackButtonClick)
 
+        switch = QtGui.QPushButton("+/-", self)
+        switch.move(100, 360)
+        switch.resize(70, 60)
+        switch.clicked.connect(self.OnSwitchButtonClick)
+
+        point = QtGui.QPushButton(".", self)
+        point.move(180, 360)
+        point.resize(70, 60)
+        point.clicked.connect(self.OnPointClickedButtonClick)
+
+# Определение типа кнопки
         nums = [zero, one, two, three, four, five, six, seven, eight, nine]
 
         ops = [back, c, div, mult, minus, plus, equal]
@@ -131,9 +135,8 @@ class ViewOfCalculator(QtGui.QMainWindow):
         for i in ops:
             i.setStyleSheet("color:red;")
 
-        for i in ops[3:7]:
+        for i in ops[2:7]:
             i.clicked.connect(self.Operator)
-
 
         self.setGeometry(300, 300, 350, 440)
         self.setFixedSize(350, 440)
@@ -141,7 +144,6 @@ class ViewOfCalculator(QtGui.QMainWindow):
         self.setWindowIcon(QtGui.QIcon("calc.jpg"))
         self.show()
 
-# Работа с вычислительными действиями программы
     def Nums(self):
         global num
         global newNum
@@ -151,7 +153,6 @@ class ViewOfCalculator(QtGui.QMainWindow):
 
         newNum = int(sender.text())
         setNum = str(newNum)
-
 
         if opVar == False:
             self.line.setText(self.line.text() + setNum)
@@ -197,20 +198,21 @@ class ViewOfCalculator(QtGui.QMainWindow):
         print(operator)
 
         if operator == "+":
-            sumAll = float(num) + float(newNum)
+            sumAll = CalculatingPart.Plus(num,newNum)
 
         elif operator == "-":
-            sumAll = float(num) - float(newNum)
+            sumAll = CalculatingPart.Minus(num,newNum)
 
         elif operator == "/":
-            sumAll = float(num) / float(newNum)
+            sumAll = CalculatingPart.Del(num,newNum)
 
         elif operator == "*":
-            sumAll = float(num) * float(newNum)
+            sumAll = CalculatingPart.Umn(num,newNum)
 
         print(sumAll)
         self.line.setText(str(sumAll))
         opVar = True
+
 
     def OnBackButtonClick(self):
         self.line.backspace()
@@ -245,9 +247,19 @@ class ViewOfCalculator(QtGui.QMainWindow):
         num = float(self.line.text())
         self.line.setText(str(CalculatingPart.Sqrt(num)))
 
-
-
 class CalculatingPart():
+
+    def Plus(num, newNum):
+        return float(num) + float(newNum)
+
+    def Minus(num, newNum):
+        return float(num) - float(newNum)
+
+    def Del(num, newNum):
+        return float(num) / float(newNum)
+
+    def Umn(num, newNum):
+        return float(num) * float(newNum)
 
     def Squared(num):
         return num ** 2
