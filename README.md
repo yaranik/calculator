@@ -18,7 +18,7 @@ In this version you can use the function division, multiplication, subtraction, 
 
 3. Enter the second number to window.
 
-4. Push on button "="
+4. Push on button "=".
 
 5. The result is to appear in the window.
  
