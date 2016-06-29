@@ -16,7 +16,7 @@ In this version you can use the function division, multiplication, subtraction, 
 2. Select the function.
 3. Enter the second number to window.
 4. Push on button "="
-5. The куыгде is to appear in the window.
+5. The result is to appear in the window.
  
 ### Some words about the development of the application
 JetBrains PyCharm Community Edition 2016.1.2
